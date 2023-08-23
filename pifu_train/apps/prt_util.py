@@ -109,7 +109,7 @@ def computePRT(mesh_path, n, order):
         hits = mesh.ray.intersects_any(origins + delta * normals, vectors)
         nohits = np.logical_and(front, np.logical_not(hits))
 
-        PRT = (nohits.astype(np.float) * dots)[:,None] * SH
+        PRT = (nohits.astype(float) * dots)[:,None] * SH
         
         if PRT_all is not None:
             PRT_all += (PRT.reshape(-1, n, SH.shape[1]).sum(1))
@@ -122,17 +122,16 @@ def computePRT(mesh_path, n, order):
     # when loading PRT in other program, use the triangle list from trimesh.
     return PRT, mesh.faces
 
-def testPRT(dir_path, n=40):
-    if dir_path[-1] == '/':
-        dir_path = dir_path[:-1]
-    sub_name = dir_path.split('/')[-1][:-4]
-    obj_path = os.path.join(dir_path, sub_name + '_100k.obj')
-    os.makedirs(os.path.join(dir_path, 'bounce'), exist_ok=True)
+def testPRT(dir_path, n=4):
+    real_path=dir_path
+    file_name = os.path.basename(dir_path)
+    dir_path = os.path.dirname(dir_path)
+    new_dir_path= os.path.join(dir_path, 'bounce')
+    os.makedirs(new_dir_path, exist_ok=True)
 
-    PRT, F = computePRT(obj_path, n, 2)
+    PRT, F = computePRT(real_path, n, 2)
     np.savetxt(os.path.join(dir_path, 'bounce', 'bounce0.txt'), PRT, fmt='%.8f')
     np.save(os.path.join(dir_path, 'bounce', 'face.npy'), F)
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-i', '--input', type=str, default='/home/shunsuke/Downloads/rp_dennis_posed_004_OBJ')
