@@ -55,7 +55,7 @@ step5: Create a folder named "Data" in pifu_train dir and store the 3d .obj file
 step6: Run this script to create a bounce folder of (bounceN.txt, face.npy) - " !python /content/PIFu/apps/prt_util.py -i /content/PIFu/Data/penguin4_00.obj " {you can replace the penguin4_00.obj with the name of the obj file you have in the "Data" folder"} **RUN THIS COMMAND FOR THE EACH OF THE OBJ FILES THAT YOU WANT TO TRAIN ON TO GENERATE MULTIPLE bounceN.txt file for individula .obj's **
 
 step7: Run this script to render all the angles of obj object and collect each of the frames into the Train/RENDER folder - " !python /content/PIFu/render_data.py -i /content/PIFu/Data/penguin4_00.obj -o /content/PIFu/Train -e " ** This is usefull to train the model on different multiple view angles. 
-*** NOTE: play with the " cam.ortho_ratio " value in the line 149. I used a value of 0.8 insted of "0.4 * (512 / im_size)"- but the results are not that good for this value. play with it if you want.
+*** NOTE: play with the " cam.ortho_ratio " value in the line 149. I used a value of 0.8 insted of "0.4 * (512 / im_size) OR just replace 0.4 with any higer number like 0.5 or 0.6 etc.."- but the results are not that good for this value. play with it if you want.
 
 step8: downloade the pre-trained model that was trained on the human dataset. using: " !sh ./scripts/download_trained_model.sh "
 **** NOTE:  #download if you train on top of the model trained on human dataset
