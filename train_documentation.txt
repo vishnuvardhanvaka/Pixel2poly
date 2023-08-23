@@ -1,0 +1,63 @@
+********** IF requirements.txt does'nt work for " !pip install -r requirements.txt" use the following commands: *******************
+
+!pip install pyembree
+!pip install cycler==0.10.0
+!pip install decorator==4.4.1
+!pip install imageio==2.8.0
+!pip install kiwisolver==1.1.0
+!pip install matplotlib==3.1.3
+!pip install networkx==2.4
+!pip install PyQt5
+!sudo apt-get install qtbase5-dev
+!pip install Pillow==9.0.0
+!pip install PyOpenGL==3.1.5
+!pip install pyparsing==2.4.6
+!pip install python-dateutil==2.8.1
+!pip install PyWavelets==1.1.1
+!pip install Shapely==1.7.0
+!pip install six==1.14.0
+!pip install tqdm==4.43.0
+!pip install trimesh
+!pip install xxhash==1.4.3
+!pip install pyexr # required to run the below command !python /content/PIFu/render_data.py -i /content/PIFu/Data/rp_dennis_posed_004_100k.obj -o /content/PIFu/Train
+!pip install Imath
+!pip install git+https://github.com/facebookresearch/detectron2.git
+!pip install openexr==1.3.8
+!pip install cmake
+!pip install rembg
+!apt-get install -y freeglut3 freeglut3-dev
+!apt-get install -y libglu1-mesa-dev
+
+*************************************************************************************************************************************************************************************
+
+
+This folder consists of process to train the pifu model on 3d obj's along with there texture maps (using baking)
+The folder contains:
+  apps
+  lib
+  sample_images
+  scripts
+  env_sh.npy
+  environment.yml
+  requirements.txt
+The app function needs to be set before the model is trained. 
+Follow these steps:
+step1: Clone this repo using !git clone ###
+
+step2: move to pifu_train dir using " %cd pifu_train "
+
+step3: Install all the dependencies in the requirements.txt using " !pip install -r requirements.txt ".
+
+step4: change the n=40 value in the apps/prt_util.py line 125 file to a value that your machine gpu can handle like n=4.
+
+step5: Create a folder named "Data" in pifu_train dir and store the 3d .obj files(models) in it and create a "tex" folder in the "Data" dir and then add texture file into it ending with "_dif_2k.jpg".
+
+step6: Run this script to create a bounce folder of (bounceN.txt, face.npy) - " !python /content/PIFu/apps/prt_util.py -i /content/PIFu/Data/penguin4_00.obj " {you can replace the penguin4_00.obj with the name of the obj file you have in the "Data" folder"} **RUN THIS COMMAND FOR THE EACH OF THE OBJ FILES THAT YOU WANT TO TRAIN ON TO GENERATE MULTIPLE bounceN.txt file for individula .obj's **
+
+step7: Run this script to render all the angles of obj object and collect each of the frames into the Train/RENDER folder - " !python /content/PIFu/render_data.py -i /content/PIFu/Data/penguin4_00.obj -o /content/PIFu/Train -e " ** This is usefull to train the model on different multiple view angles. 
+*** NOTE: play with the " cam.ortho_ratio " value in the line 149. I used a value of 0.8 insted of "0.4 * (512 / im_size)"- but the results are not that good for this value. play with it if you want.
+
+step8: downloade the pre-trained model that was trained on the human dataset. using: " !sh ./scripts/download_trained_model.sh "
+**** NOTE:  #download if you train on top of the model trained on human dataset
+            #after download you will need to change the name and location of the checkpoint
+            #when you run the train script it will throw an error that's where you have to move the checkpoint too
