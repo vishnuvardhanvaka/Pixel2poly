@@ -65,7 +65,7 @@ def train(opt):
 
     if opt.continue_train:
         if opt.resume_epoch < 0:
-            model_path = '%s/%s/netG_latest' % (opt.checkpoints_path, opt.name)
+            model_path = '%s/%s/net_G' % (opt.checkpoints_path, opt.name)
         else:
             model_path = '%s/%s/netG_epoch_%d' % (opt.checkpoints_path, opt.name, opt.resume_epoch)
         print('Resuming from ', model_path)
