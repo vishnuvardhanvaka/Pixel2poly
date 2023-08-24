@@ -61,3 +61,12 @@ step8: downloade the pre-trained model that was trained on the human dataset. us
 **** NOTE:  #download if you train on top of the model trained on human dataset
             #after download you will need to change the name and location of the checkpoint
             #when you run the train script it will throw an error that's where you have to move the checkpoint too
+
+step9: Train-script:- " !python /content/PIFu/train_shape.py --dataroot /content/PIFu/Train --random_flip --num_epoch 10 --random_scale --random_trans --batch_size 10 --num_threads 4 --num_sample_inout 40 --continue_train --freq_save 1 --checkpoints_path /content/PIFu/checkpoints ".
+**NOTE: If you get any errors like:- No such file or directory: '/content/PIFu/checkpoints/example/netG_latest' then create a new folder named "example" in checkpoints  and then put pretrained net_G file in this example folder and rerun the program.
+
+Step10: Then after successfully training the mo
+
+
+
+
