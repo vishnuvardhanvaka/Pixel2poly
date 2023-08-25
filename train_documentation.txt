@@ -63,10 +63,16 @@ step8: downloade the pre-trained model that was trained on the human dataset. us
             #when you run the train script it will throw an error that's where you have to move the checkpoint too
 
 step9: Train-script:- " !python /content/PIFu/train_shape.py --dataroot /content/PIFu/Train --random_flip --num_epoch 10 --random_scale --random_trans --batch_size 10 --num_threads 4 --num_sample_inout 40 --continue_train --freq_save 1 --checkpoints_path /content/PIFu/checkpoints ".
-**NOTE: If you get any errors like:- No such file or directory: '/content/PIFu/checkpoints/example/netG_latest' then create a new folder named "example" in checkpoints  and then put pretrained net_G file in this example folder and rerun the program.
+**NOTE: If you get any errors like:- No such file or directory: '/content/PIFu/checkpoints/example/netG_latest' then create a new folder named "example" in checkpoints  and then put pretrained net_G file in this example folder and run the program.
 
-Step10: Then after successfully training the mo
+Step10: Now training will be started for given number of epochs !!
 
+Step11: Next, create a Input_Test folder and put the images that you want to convert to 3d and then run getMask.py file using command " !python getMask.py ". The outputs are seen in "sample_images" and then rename the mask file as "filename_mask.jpg".
+***NOTE: Change the paths of input_test or the ouputs in the getMask.py file at "in_path" & "out_path"
+                              The default values paths are:       in_path = '/content/PIFu/Input_Test'
+                                                                  out_path = '/content/PIFu/sample_images'
+
+Step12: Finally, change the checkpoint netG path (CHECKPOINTS_NETG_PATH=) to the one you have trained  in ./scripts/test.sh and run the test.sh using command:- " !sh ./scripts/test.sh " and check the results in model pifu_demo folder.
 
 
 
